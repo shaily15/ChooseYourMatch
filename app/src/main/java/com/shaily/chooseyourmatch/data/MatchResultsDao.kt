@@ -1,19 +1,18 @@
-package com.shaily.chooseyourmatch.data
-
-import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-
-interface MatchResultsDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSelectedMatch(results: Results)
-
-    @Query("SELECT * FROM matchResults")
-    fun getAllMatches(): LiveData<List<Results>>
-
-    @Delete
-    suspend fun deletedMatch(results: Results)
-}
+//package com.shaily.chooseyourmatch.data
+//
+//import androidx.room.*
+//import kotlinx.coroutines.flow.Flow
+//import retrofit2.Response
+//
+//@Dao
+//interface MatchResultsDao {
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertSelectedMatch(result: Results)
+//
+//    @Query("SELECT * FROM matchResults")
+//    fun getAllMatches(): Flow<List<Results>>
+//
+//    @Delete
+//    suspend fun deleteMatch(result: Results)
+//}
