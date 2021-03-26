@@ -1,9 +1,8 @@
-package com.shaily.chooseyourmatch.data
+package com.shaily.chooseyourmatch.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Registered (
-
+data class Dob (
 	@SerializedName("date") val date : String,
 	@SerializedName("age") val age : Int
 )
