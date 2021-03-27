@@ -8,23 +8,22 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp">
+        android:layout_margin="@dimen/layout_margin"
+        android:paddingTop="@dimen/layout_padding_top"
+        app:cardCornerRadius="@dimen/corner_radius">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Media -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="@dimen/cardView_width"
+                android:layout_height="@dimen/cardView_height"
                 android:layout_gravity="center"
-                app:cardCornerRadius="100dp">
-                <!-- add a Image image.png in your Drawable folder -->
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
@@ -39,18 +38,18 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="@dimen/left_right_padding"
+                android:paddingRight="@dimen/left_right_padding">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
+                    android:id="@+id/tv_fullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_fullName"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/name"
-                    android:textColor="@color/teal_700"
                     android:textAppearance="?attr/textAppearanceHeadline4"
+                    android:textColor="@color/teal_700"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -61,28 +60,28 @@
                     android:weightSum="3">
 
                     <TextView
+                        android:id="@+id/tv_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_age"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/layout_margin"
                         android:text="@string/age"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
+                        android:id="@+id/tv_mobile_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_mobile_no"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/layout_margin"
                         android:text="@string/mobile"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
+                        android:id="@+id/tv_gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_gender"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/layout_margin"
                         android:text="@string/gender"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
@@ -96,28 +95,28 @@
                     android:weightSum="3">
 
                     <TextView
+                        android:id="@+id/tv_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:id="@+id/tv_city"
+                        android:layout_margin="@dimen/layout_margin"
                         android:text="@string/city"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
+                        android:id="@+id/tv_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/layout_margin"
                         android:text="@string/state"
-                        android:id="@+id/tv_state"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
+                        android:id="@+id/tv_country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:id="@+id/tv_country"
+                        android:layout_margin="@dimen/layout_margin"
                         android:text="@string/country"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
@@ -131,32 +130,32 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/layout_margin">
 
                 <com.google.android.material.button.MaterialButton
-                    style="?attr/borderlessButtonStyle"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
                     android:id="@+id/btn_decline"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:textSize="16sp"
-                    android:textColor="#60706f"
-                    app:iconTint="#60706f"
+                    android:text="@string/decline"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/medium_text_size"
                     app:icon="@drawable/ic_decline"
-                    android:text="@string/decline" />
+                    app:iconTint="@color/grey" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_accept"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btn_accept"
                     android:layout_alignParentEnd="true"
                     android:text="@string/accept"
-                    android:textSize="16sp"
-                    app:iconTint="#51cb46"
-                    android:textColor="#51cb46"
-                    app:icon="@drawable/ic_tick_mark"/>
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/medium_text_size"
+                    app:icon="@drawable/ic_tick_mark"
+                    app:iconTint="@color/green" />
             </RelativeLayout>
 
         </LinearLayout>

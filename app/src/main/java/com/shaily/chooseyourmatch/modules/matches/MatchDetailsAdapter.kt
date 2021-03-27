@@ -7,26 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.shaily.chooseyourmatch.data.MatchDetailsResponse
-import com.shaily.chooseyourmatch.data.Results
+import com.shaily.chooseyourmatch.models.Results
 import com.shaily.chooseyourmatch.databinding.ChooseYourMatchItemBinding
 
-class MatchDetailsAdapter : ListAdapter<Results, MatchDetailsAdapter.MatchDetailsViewHolder>(MatchResultsComparator()) {
+class MatchDetailsAdapter :
+    ListAdapter<Results, MatchDetailsAdapter.MatchDetailsViewHolder>(MatchResultsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchDetailsViewHolder {
-        val binding = ChooseYourMatchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ChooseYourMatchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MatchDetailsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MatchDetailsViewHolder, position: Int) {
         val currentItem = differ.currentList[position]
-        if(currentItem != null) {
+        if (currentItem != null) {
             holder.bind(currentItem)
         }
     }
 
     inner class MatchDetailsViewHolder(private val binding: ChooseYourMatchItemBinding) :
-            RecyclerView.ViewHolder(binding.root){
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(matchResult: Results) {
             binding.apply {
@@ -43,8 +44,13 @@ class MatchDetailsAdapter : ListAdapter<Results, MatchDetailsAdapter.MatchDetail
                 tvState.text = matchResult.location.state
                 tvCountry.text = matchResult.location.country
 
+                btnDecline.setOnClickListener {
+                    onButtonDeclineClickListener?.let { it(matchResult) }
+                }
 
-
+                btnAccept.setOnClickListener {
+                    onButtonAcceptClickListener?.let { it(matchResult) }
+                }
             }
         }
     }
@@ -64,5 +70,15 @@ class MatchDetailsAdapter : ListAdapter<Results, MatchDetailsAdapter.MatchDetail
         return differ.currentList.size
     }
 
+    private var onButtonDeclineClickListener: (((Results) -> Unit))? = null
 
+    fun setDeclineOnClickListener(listener: (Results) -> Unit) {
+        onButtonDeclineClickListener = listener
+    }
+
+    private var onButtonAcceptClickListener: ((Results) -> Unit)? = null
+
+    fun setAcceptOnClickListener(listener: (Results) -> Unit) {
+        onButtonAcceptClickListener = listener
+    }
 }

@@ -1,6 +1,6 @@
 package com.shaily.chooseyourmatch.api
 
-import com.shaily.chooseyourmatch.data.MatchDetailsResponse
+import com.shaily.chooseyourmatch.models.MatchDetailsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 

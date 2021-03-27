@@ -1,6 +1,9 @@
 package com.shaily.chooseyourmatch.di
 
+import android.app.Application
+import androidx.room.Room
 import com.shaily.chooseyourmatch.api.MatchResultsApi
+import com.shaily.chooseyourmatch.db.MatchResultsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +28,10 @@ object AppModule {
     @Singleton
     fun provideMatchResultsApi(retrofit: Retrofit): MatchResultsApi =
         retrofit.create(MatchResultsApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMatchDatabase(app: Application): MatchResultsDatabase =
+        Room.databaseBuilder(app, MatchResultsDatabase::class.java, "matchResult_database")
+            .build()
 }

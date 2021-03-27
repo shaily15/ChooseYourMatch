@@ -1,18 +1,16 @@
 package com.shaily.chooseyourmatch.viewmodel
 
 import androidx.lifecycle.*
-import com.shaily.chooseyourmatch.api.MatchResultsApi
-import com.shaily.chooseyourmatch.data.MatchDetailsResponse
-import com.shaily.chooseyourmatch.util.Resource
+import com.shaily.chooseyourmatch.repository.MatchResultRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class ChooseMatchViewModel @Inject constructor(api: MatchResultsApi) : ViewModel() {
+class ChooseMatchViewModel @Inject constructor(repository: MatchResultRepository) : ViewModel() {
 
+    val matchResultsLiveData = repository.getAllMatchResults().asLiveData()
+
+    /* Network Call before Room
     val matchResultsLiveData: MutableLiveData<Resource<MatchDetailsResponse>> = MutableLiveData()
 
     init {
@@ -31,5 +29,5 @@ class ChooseMatchViewModel @Inject constructor(api: MatchResultsApi) : ViewModel
             }
         }
         return Resource.Error(response.message())
-    }
+    } */
 }

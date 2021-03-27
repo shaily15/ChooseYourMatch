@@ -2,12 +2,11 @@ package com.shaily.chooseyourmatch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.shaily.chooseyourmatch.data.MatchDetailsResponse
 import com.shaily.chooseyourmatch.databinding.ActivityChooseMatchBinding
 import com.shaily.chooseyourmatch.modules.matches.MatchDetailsAdapter
 import com.shaily.chooseyourmatch.util.Resource
@@ -17,9 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChooseMatchActivity : AppCompatActivity() {
 
-    private val viewModel: ChooseMatchViewModel  by viewModels()
-
-    private  val TAG = "ChooseMatchActivity"
+    private val viewModel: ChooseMatchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,33 +31,23 @@ class ChooseMatchActivity : AppCompatActivity() {
                 layoutManager = LinearLayoutManager(this@ChooseMatchActivity)
             }
 
-            viewModel.matchResultsLiveData.observe(this@ChooseMatchActivity) {
-                matchDetailsReponse -> matchAdapter.differ.submitList(matchDetailsReponse.data?.results)
+            matchAdapter.setDeclineOnClickListener {
+                Toast.makeText(this@ChooseMatchActivity, "Member Declined", Toast.LENGTH_SHORT)
+                    .show()
             }
 
+            matchAdapter.setAcceptOnClickListener {
+                Toast.makeText(this@ChooseMatchActivity, "Member Accepted", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            viewModel.matchResultsLiveData.observe(this@ChooseMatchActivity) { result ->
+                matchAdapter.differ.submitList(result.data)
+
+                progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+                textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+                textViewError.text = result.error?.localizedMessage
+            }
         }
-
-
     }
 }
-
-//observe(this@ChooseMatchActivity) {
-//                matchResults -> matchAdapter.differ.submitList(matchResults.data)
-//            }
-
-//viewModel.matchResultsLiveData.observe(this@ChooseMatchActivity, Observer {response ->
-//    when(response) {
-//        is Resource.Success -> {
-//            response.data?.let { matchResultsResponse ->
-//                matchAdapter.differ.submitList(matchResultsResponse.results)
-//            }
-//        }
-//        is Resource.Error -> {
-//            response.message?.let { message ->
-//                Log.e(TAG, "onCreate: An error occured $message")
-//            }
-//        }
-//        else -> Log.e(TAG, "onCreate: A random error occured")
-//    }
-//
-//})
