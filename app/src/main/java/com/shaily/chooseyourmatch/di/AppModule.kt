@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.shaily.chooseyourmatch.api.MatchResultsApi
 import com.shaily.chooseyourmatch.db.MatchResultsDatabase
+import com.shaily.chooseyourmatch.util.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl(MatchResultsApi.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

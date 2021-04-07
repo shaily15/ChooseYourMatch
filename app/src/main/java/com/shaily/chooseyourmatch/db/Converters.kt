@@ -6,22 +6,22 @@ import com.shaily.chooseyourmatch.models.*
 class Converters {
 
     @TypeConverter
-    fun fromFirstName(firstName: Name): String {
+    fun fromName(firstName: Name): String {
         return firstName.first
     }
 
     @TypeConverter
-    fun toFirstName(firstName: String): Name {
+    fun toName(firstName: String): Name {
         return Name(firstName, firstName, firstName)
     }
 
     @TypeConverter
-    fun fromAge(age: Dob): Int? {
+    fun fromDob(age: Dob): Int? {
         return age.age
     }
 
     @TypeConverter
-    fun toAge(age: Int): Dob {
+    fun toDob(age: Int): Dob {
         return Dob(age.toString(), age)
     }
 
@@ -37,12 +37,12 @@ class Converters {
 
     @TypeConverter
     fun fromLocation(city: Location): String {
-        return city.city
+        return city.city + " " + city.state + " " + city.country
     }
 
     @TypeConverter
-    fun toLocation(city: String, street: Street, coordinates: String, postcard: String, timezone: Timezone): Location {
-        return Location(street, city, city, city, coordinates, postcard, timezone)
+    fun toLocation(city: String): Location {
+        return Location(city, city, city)
     }
 
     @TypeConverter
@@ -52,6 +52,6 @@ class Converters {
 
     @TypeConverter
     fun toPicture(picture: String): Picture {
-        return Picture(picture, picture, picture)
+        return Picture(picture)
     }
 }

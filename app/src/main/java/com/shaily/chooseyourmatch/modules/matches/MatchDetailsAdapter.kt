@@ -1,14 +1,15 @@
 package com.shaily.chooseyourmatch.modules.matches
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.shaily.chooseyourmatch.models.Results
 import com.shaily.chooseyourmatch.databinding.ChooseYourMatchItemBinding
+import com.shaily.chooseyourmatch.models.Results
 
 class MatchDetailsAdapter :
     ListAdapter<Results, MatchDetailsAdapter.MatchDetailsViewHolder>(MatchResultsComparator()) {
@@ -35,20 +36,25 @@ class MatchDetailsAdapter :
                     .load(matchResult.picture.large)
                     .into(imageView)
 
-                val fullName: String = matchResult.name.first + matchResult.name.last
-                tvFullName.text = fullName
+                tvFullName.text = matchResult.name.first
                 tvAge.text = matchResult.dob.age.toString()
                 tvMobileNo.text = matchResult.cell
                 tvGender.text = matchResult.gender
-                tvCity.text = matchResult.location.city
-                tvState.text = matchResult.location.state
-                tvCountry.text = matchResult.location.country
+                val locationText:String = matchResult.location.city
+                var res: String? = ""
+                for (i in locationText.indices) {
+                    val ch: Char = locationText.toCharArray()[i]
+                    if (Character.isUpperCase(ch)) res += " " + Character.toLowerCase(ch) else res += ch
+                }
+                tvCity.text = res
 
                 btnDecline.setOnClickListener {
                     onButtonDeclineClickListener?.let { it(matchResult) }
                 }
 
                 btnAccept.setOnClickListener {
+                    btnAccept.visibility = View.INVISIBLE
+                    btnDecline.visibility = View.INVISIBLE
                     onButtonAcceptClickListener?.let { it(matchResult) }
                 }
             }
@@ -57,7 +63,7 @@ class MatchDetailsAdapter :
 
     class MatchResultsComparator : DiffUtil.ItemCallback<Results>() {
         override fun areItemsTheSame(oldItem: Results, newItem: Results) =
-            oldItem.id.name == newItem.id.name
+            oldItem.cell == newItem.cell
 
 
         override fun areContentsTheSame(oldItem: Results, newItem: Results) =
